@@ -1,0 +1,42 @@
+From 23531bab2524a625f00d3aba6a3f3f14700a7a30 Mon Sep 17 00:00:00 2001
+From: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
+Date: Thu, 23 Mar 2023 02:47:07 +0900
+Subject: [PATCH] dts: Add devicetree for am3352-aki
+
+Signed-off-by: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
+---
+ arch/arm/boot/dts/Makefile       | 3 ++-
+ arch/arm/boot/dts/am3352-aki.dts | 7 +++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/boot/dts/am3352-aki.dts
+
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 27ca1ca6e827..03c0454077a1 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -872,7 +872,8 @@ dtb-$(CONFIG_SOC_AM33XX) += \
+ 	am335x-sbc-t335.dtb \
+ 	am335x-sl50.dtb \
+ 	am335x-wega-rdk.dtb \
+-	am335x-osd3358-sm-red.dtb
++	am335x-osd3358-sm-red.dtb \
++	am3352-aki.dtb
+ dtb-$(CONFIG_ARCH_OMAP4) += \
+ 	omap4-droid-bionic-xt875.dtb \
+ 	omap4-droid4-xt894.dtb \
+diff --git a/arch/arm/boot/dts/am3352-aki.dts b/arch/arm/boot/dts/am3352-aki.dts
+new file mode 100644
+index 000000000000..47b7ff75b8cf
+--- /dev/null
++++ b/arch/arm/boot/dts/am3352-aki.dts
+@@ -0,0 +1,7 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include "am335x-boneblack.dts"
++
++&pruss_tm {
++	status = "disabled";
++};
+-- 
+2.34.1
+
