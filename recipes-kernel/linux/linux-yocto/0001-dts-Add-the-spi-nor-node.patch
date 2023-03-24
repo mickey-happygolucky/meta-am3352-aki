@@ -1,0 +1,50 @@
+From 86cbfc26264a74a6d466516d2e14dd034c3f08d5 Mon Sep 17 00:00:00 2001
+From: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
+Date: Thu, 23 Mar 2023 16:29:30 +0900
+Subject: [PATCH] dts: Add the spi-nor node
+
+Signed-off-by: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
+---
+ arch/arm/boot/dts/am3352-aki.dts | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+
+diff --git a/arch/arm/boot/dts/am3352-aki.dts b/arch/arm/boot/dts/am3352-aki.dts
+index 47b7ff75b8cf..ada682fd5cef 100644
+--- a/arch/arm/boot/dts/am3352-aki.dts
++++ b/arch/arm/boot/dts/am3352-aki.dts
+@@ -5,3 +5,32 @@
+ &pruss_tm {
+ 	status = "disabled";
+ };
++
++/* SPI Flash */
++&am33xx_pinmux {
++	spi1_pins: pinmux_spi_gpio {
++		pinctrl-single,pins = <
++			AM33XX_PADCONF(AM335X_PIN_MCASP0_ACLKX, PIN_INPUT_PULLUP, MUX_MODE3)     /* sck */
++			AM33XX_PADCONF(AM335X_PIN_MCASP0_AXR0, PIN_INPUT_PULLUP, MUX_MODE3)       /* miso */
++			AM33XX_PADCONF(AM335X_PIN_MCASP0_FSX, PIN_INPUT_PULLUP, MUX_MODE3)       /* mosi */
++			AM33XX_PADCONF(AM335X_PIN_MCASP0_AHCLKR, PIN_INPUT_PULLUP, MUX_MODE3)    /* /cs */
++		>;
++	};
++};
++
++&spi1{
++	pinctrl-names = "default";
++	pinctrl-0 = <&spi1_pins>;
++	status = "okay";
++	ti,pindir-d0-out-d1-in;
++
++	serial_flash: m25p80@0 {
++		compatible = "jedec,spi-nor";
++		spi-max-frequency = <48000000>;
++		reg = <0x0>;
++		m25p,fast-read;
++		status = "okay";
++		#address-cells = <1>;
++		#size-cells = <1>;
++	};
++};
+-- 
+2.34.1
+
