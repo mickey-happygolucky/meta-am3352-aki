@@ -1,0 +1,76 @@
+From 7ad350b8fe51952d8fbdb01dceb064e53a3476d7 Mon Sep 17 00:00:00 2001
+From: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
+Date: Sat, 25 Mar 2023 14:33:14 +0900
+Subject: [PATCH] dts: Add user LEDs
+
+Signed-off-by: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
+---
+ arch/arm/boot/dts/am3352-aki.dts | 48 ++++++++++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+
+diff --git a/arch/arm/boot/dts/am3352-aki.dts b/arch/arm/boot/dts/am3352-aki.dts
+index ada682fd5cef..a6d5d5e843b9 100644
+--- a/arch/arm/boot/dts/am3352-aki.dts
++++ b/arch/arm/boot/dts/am3352-aki.dts
+@@ -16,6 +16,15 @@ AM33XX_PADCONF(AM335X_PIN_MCASP0_FSX, PIN_INPUT_PULLUP, MUX_MODE3)       /* mosi
+ 			AM33XX_PADCONF(AM335X_PIN_MCASP0_AHCLKR, PIN_INPUT_PULLUP, MUX_MODE3)    /* /cs */
+ 		>;
+ 	};
++
++	leds_pins: pinmux_led_gpio {
++		pinctrl-single,pins = <
++			AM33XX_PADCONF(AM335X_PIN_GPMC_ADVN_ALE, PIN_OUTPUT_PULLUP, MUX_MODE7)
++			AM33XX_PADCONF(AM335X_PIN_GPMC_OEN_REN, PIN_OUTPUT_PULLUP, MUX_MODE7)
++			AM33XX_PADCONF(AM335X_PIN_GPMC_WEN, PIN_OUTPUT_PULLUP, MUX_MODE7)
++			AM33XX_PADCONF(AM335X_PIN_GPMC_BEN0_CLE, PIN_OUTPUT_PULLUP, MUX_MODE7)
++		>;
++	};
+ };
+ 
+ &spi1{
+@@ -34,3 +43,42 @@ serial_flash: m25p80@0 {
+ 		#size-cells = <1>;
+ 	};
+ };
++
++/ {
++	/delete-node/ leds;
++
++	leds {
++		pinctrl-names = "default";
++		pinctrl-0 = <&leds_pins>;
++
++		compatible = "gpio-leds";
++
++		led0 {
++			label = "user0";
++			gpios = <&gpio2 4 GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "none";
++			default-state = "off";
++		};
++
++		led1 {
++			label = "user1";
++			gpios = <&gpio2 3 GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "none";
++			default-state = "off";
++		};
++
++		led2 {
++			label = "user2";
++			gpios = <&gpio2 2 GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "none";
++			default-state = "off";
++		};
++
++		led3 {
++			label = "user3";
++			gpios = <&gpio2 5 GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "none";
++			default-state = "off";
++		};
++	};
++};
+-- 
+2.34.1
+
