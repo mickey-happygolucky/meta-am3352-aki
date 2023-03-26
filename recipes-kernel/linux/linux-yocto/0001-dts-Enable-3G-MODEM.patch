@@ -1,0 +1,41 @@
+From 4b6e5665bfc7cb5d319fb7ee07571d31040e2f87 Mon Sep 17 00:00:00 2001
+From: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
+Date: Sun, 26 Mar 2023 13:56:56 +0900
+Subject: [PATCH] dts: Enable 3G-MODEM
+
+---
+ arch/arm/boot/dts/am3352-aki.dts | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/arch/arm/boot/dts/am3352-aki.dts b/arch/arm/boot/dts/am3352-aki.dts
+index 01b28ec1ae6f..82f047284385 100644
+--- a/arch/arm/boot/dts/am3352-aki.dts
++++ b/arch/arm/boot/dts/am3352-aki.dts
+@@ -58,6 +58,10 @@ &uart1 {
+ 	status = "okay";
+ };
+ 
++&usb0 {
++	dr_mode = "host";
++};
++
+ &gpio1 {
+ 	wsun-en-hog {
+ 		gpio-hog;
+@@ -65,6 +69,13 @@ wsun-en-hog {
+ 		output-high;
+ 		line-name = "WSUN_EN";
+ 	};
++
++	modem-en-hog {
++		gpio-hog;
++		gpios = <18 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "MODEM_EN";
++	};
+ };
+ 
+ / {
+-- 
+2.34.1
+
