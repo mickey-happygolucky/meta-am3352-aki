@@ -1,0 +1,54 @@
+From 1f39c85c4b45cc15788e5c683b5303404f37d4db Mon Sep 17 00:00:00 2001
+From: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
+Date: Sun, 26 Mar 2023 09:55:06 +0900
+Subject: [PATCH] dts: Enable WiSUN
+
+Signed-off-by: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
+---
+ arch/arm/boot/dts/am3352-aki.dts | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/arch/arm/boot/dts/am3352-aki.dts b/arch/arm/boot/dts/am3352-aki.dts
+index 05290e35135a..5818ab02aae2 100644
+--- a/arch/arm/boot/dts/am3352-aki.dts
++++ b/arch/arm/boot/dts/am3352-aki.dts
+@@ -21,6 +21,13 @@ AM33XX_PADCONF(AM335X_PIN_MCASP0_AHCLKR, PIN_INPUT_PULLUP, MUX_MODE3)    /* /cs
+ 		>;
+ 	};
+ 
++	uart1_pins: pinmux_uart1_pins {
++		pinctrl-single,pins = <
++			AM33XX_PADCONF(AM335X_PIN_UART1_RXD, PIN_INPUT_PULLUP, MUX_MODE0)
++			AM33XX_PADCONF(AM335X_PIN_UART1_TXD, PIN_OUTPUT_PULLDOWN, MUX_MODE0)
++		>;
++	};
++
+ 	leds_pins: pinmux_led_gpio {
+ 		pinctrl-single,pins = <
+ 			AM33XX_PADCONF(AM335X_PIN_GPMC_ADVN_ALE, PIN_OUTPUT_PULLUP, MUX_MODE7)
+@@ -48,6 +55,22 @@ serial_flash: m25p80@0 {
+ 	};
+ };
+ 
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart1_pins>;
++
++	status = "okay";
++};
++
++&gpio1 {
++	wsun-en-hog {
++		gpio-hog;
++		gpios = <21 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "WSUN_EN";
++	};
++};
++
+ / {
+ 	/delete-node/ leds;
+ 
+-- 
+2.34.1
+
