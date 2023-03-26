@@ -5,29 +5,21 @@ Please see the corresponding sections below for details.
 Dependencies
 ============
 
-  URI: <first dependency>
-  branch: <branch name>
-
-  URI: <second dependency>
-  branch: <branch name>
-
-  .
-  .
-  .
+  URI: git://git.yoctoproject.org/poky.git
+  branch: kirkstone
 
 Patches
 =======
 
-Please submit any patches against the meta-am3352-aki layer to the xxxx mailing list (xxxx@zzzz.org)
-and cc: the maintainer:
+Please create a pull request to this repository.
 
-Maintainer: XXX YYYYYY <xxx.yyyyyy@zzzzz.com>
+Maintainer: Yusuke Mitsuki <mickey.happygolucky@gmail.com>
 
 Table of Contents
 =================
 
   I. Adding the meta-am3352-aki layer to your build
- II. Misc
+ II. Build
 
 
 I. Adding the meta-am3352-aki layer to your build
@@ -35,7 +27,7 @@ I. Adding the meta-am3352-aki layer to your build
 
 Run 'bitbake-layers add-layer meta-am3352-aki'
 
-II. Misc
-========
+II. Build
+=================================================
 
---- replace with specific information about the meta-am3352-aki layer ---
+Run 'bitbake-layers core-image-minimal'
